@@ -116,13 +116,13 @@ func IsLoaded() (bool, error) {
 func GetState(controller uint, state *State, digitalAnalogButtonState *uint) error {
 	r, _, _ := procXInputGetState.Call(uintptr(controller), uintptr(unsafe.Pointer(state)))
 
-	if r == 0 {
-		return nil
-	}
-
 	*digitalAnalogButtonState = uint(state.Gamepad.Buttons)
 
 	analogToDigital(digitalAnalogButtonState, state)
+
+	if r == 0 {
+		return nil
+	}
 
 	return syscall.Errno(r)
 }
