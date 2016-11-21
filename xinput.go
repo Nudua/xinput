@@ -83,10 +83,10 @@ func load() error {
 	return err
 }
 
-// Load() checks if XInput was successfully loaded.
+// IsLoaded checks if XInput was successfully loaded.
 // Other functions of the library may be used safely only if it returns no error.
-func Load() error {
-	return loadError
+func IsLoaded() (bool, error) {
+	return loadError == nil, loadError
 }
 
 // GetState retrieves the current state of the controller.
